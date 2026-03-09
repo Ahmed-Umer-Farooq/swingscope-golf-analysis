@@ -215,8 +215,10 @@ export default function App() {
             {file && (
               <div className="file-strip">
                 <div className="file-info">
-                  <span className="file-name">{file.name}</span>
-                  <span className="file-size">{fmtSize(file.size)}</span>
+                  <div className="file-details">
+                    <span className="file-name">{file.name}</span>
+                    <span className="file-size">{fmtSize(file.size)}</span>
+                  </div>
                 </div>
                 {!busy && <button className="btn-ghost" onClick={handleReset}>Change</button>}
               </div>
@@ -263,18 +265,28 @@ export default function App() {
           <h2 className="section-heading">7 Biomechanical Metrics</h2>
           <div className="metrics-grid">
             {[
-              ["⛳", "Upper Torso Turn",  "Shoulder rotation angle relative to camera plane"],
-              ["⛳", "Pelvis Turn",       "Hip rotation — the key power transfer metric"],
-              ["⛳", "Posture Bend",      "Spine tilt from vertical at address & impact"],
-              ["⛳", "Stance Alignment",  "Foot line angle relative to target line"],
-              ["⛳", "Stance Width",      "Ankle-to-ankle distance in centimetres"],
-              ["⛳", "Stance Depth",      "Front-to-back foot depth differential"],
-              ["⛳", "Ball Position",     "Left/right ball position as % of total stance"],
-            ].map(([icon, label, desc]) => (
-              <div key={label} className="metric-card">
-                <span className="metric-icon">{icon}</span>
-                <span className="metric-label">{label}</span>
-                <span className="metric-desc">{desc}</span>
+              ["Upper Torso Turn",  "Shoulder rotation angle relative to camera plane", "#d4a853", "https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/360/default/24px.svg", "45°"],
+              ["Pelvis Turn",       "Hip rotation — the key power transfer metric", "#c49a47", "https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/sync_alt/default/24px.svg", "38°"],
+              ["Posture Bend",      "Spine tilt from vertical at address & impact", "#b48c3b", "https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/straighten/default/24px.svg", "28°"],
+              ["Stance Alignment",  "Foot line angle relative to target line", "#a47e2f", "https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/align_horizontal_left/default/24px.svg", "2°"],
+              ["Stance Width",      "Ankle-to-ankle distance in centimetres", "#947023", "https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/width/default/24px.svg", "62cm"],
+              ["Stance Depth",      "Front-to-back foot depth differential", "#846217", "https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/height/default/24px.svg", "8cm"],
+              ["Ball Position",     "Left/right ball position as % of total stance", "#74540b", "https://fonts.gstatic.com/s/i/short-term/release/materialsymbolsoutlined/sports_golf/default/24px.svg", "43%"],
+            ].map(([label, desc, color, icon, value]) => (
+              <div key={label} className="metric-card" style={{ '--accent': color }}>
+                <div className="metric-header">
+                  <div className="metric-icon-wrap">
+                    <img src={icon} alt="" className="metric-icon" style={{ filter: `brightness(0) saturate(100%) invert(73%) sepia(28%) saturate(645%) hue-rotate(8deg) brightness(92%) contrast(87%)` }} />
+                  </div>
+                  <div className="metric-value">{value}</div>
+                </div>
+                <div className="metric-content">
+                  <span className="metric-label">{label}</span>
+                  <span className="metric-desc">{desc}</span>
+                </div>
+                <div className="metric-bar">
+                  <div className="metric-bar-fill" />
+                </div>
               </div>
             ))}
           </div>
